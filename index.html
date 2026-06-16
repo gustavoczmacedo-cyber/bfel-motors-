@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BFEL MOTORS</title>
+<title>Bfel Motors — Multimarcas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
@@ -13,7 +13,7 @@
 
   /* NAV */
   nav{background:rgba(10,10,10,0.97);backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;border-bottom:1px solid #1e1e1e;padding:0 5%}
-  .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:68px}
+  .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;min-height:68px}
   .logo img{height:95px;width:auto;display:block}
   .nav-links{display:flex;gap:32px;list-style:none}
   .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s}
@@ -165,22 +165,38 @@
   /* FOOTER */
   footer{background:var(--surface);border-top:1px solid #1a1a1a;padding:40px 5%}
   .footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-  /* LOGO DO FOOTER AUMENTADA AQUI */
   .footer-logo img{height:85px;width:auto;margin-bottom:16px;display:block}
   .footer-copy{color:var(--muted);font-size:13px;margin-top:6px;line-height:1.8}
   .footer-links{display:flex;gap:24px}
   .footer-links a{color:var(--muted);font-size:13px;text-decoration:none;transition:color 0.2s}
   .footer-links a:hover{color:var(--green)}
 
-  /* RESPONSIVE */
+  /* RESPONSIVE & MOBILE TABS */
   @media(max-width:900px){
+    .nav-inner { flex-wrap: wrap; padding-top: 10px; height: auto; }
+    .logo img { height: 65px; } /* Ajuste fino para equilibrar com o botão ao lado */
+    
+    /* ABAS ROLÁVEIS NO MOBILE */
+    .nav-links {
+      display: flex;
+      width: 100%;
+      overflow-x: auto;
+      padding: 12px 0 8px 0;
+      gap: 24px;
+      border-top: 1px solid #1e1e1e;
+      margin-top: 10px;
+      -webkit-overflow-scrolling: touch;
+    }
+    /* Esconde a barra de rolagem mas mantém a função */
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a { white-space: nowrap; font-size: 14px; font-weight: 600; color: #fff; }
+
     .hero-inner{grid-template-columns:1fr}
     .hero-visual{display:none}
     .hero h1{font-size:36px}
     .search-row{grid-template-columns:1fr 1fr}
     .cars-grid{grid-template-columns:1fr 1fr}
     .sobre-grid{grid-template-columns:1fr}
-    .nav-links{display:none}
   }
   @media(max-width:600px){
     .cars-grid{grid-template-columns:1fr}
@@ -256,7 +272,7 @@
   <div class="search-inner">
     <div class="search-label">🔍 Encontre seu carro</div>
     <div class="search-row">
-      <select class="s-select" id="busca-marca" onchange="atualizarModelos()">
+      <select class="s-select" id="busca-marca" onchange="updateModels()">
         <option value="">Marca</option>
         <option value="land rover">Land Rover</option>
         <option value="volkswagen">Volkswagen</option>
@@ -292,7 +308,7 @@
         <option value="200000">R$ 200.000</option>
         <option value="max">Acima de R$ 200.000</option>
       </select>
-      <button class="s-btn" onclick="buscarCarros()">Buscar</button>
+      <button class="s-btn" onclick="searchCars()">Buscar</button>
     </div>
   </div>
 </section>
@@ -310,7 +326,7 @@
         <div class="msg-sem-estoque-icon">🤷‍♂️</div>
         <h3>Nenhum veículo encontrado</h3>
         <p>Infelizmente não temos nenhum carro com essas características em estoque no momento.</p>
-        <button class="btn-secondary" onclick="limparBusca()">Limpar filtros</button>
+        <button class="btn-secondary" onclick="clearSearch()">Limpar filtros</button>
       </div>
 
       <div class="car-card">
@@ -753,101 +769,83 @@
 
 <script>
 // ── SISTEMA DE BUSCA COM MODELOS DINÂMICOS ────────────────────────
-function atualizarModelos() {
-  const marca = document.getElementById('busca-marca').value;
-  const selectModelo = document.getElementById('busca-modelo');
+function updateModels() {
+  const brand = document.getElementById('busca-marca').value;
+  const modelSelect = document.getElementById('busca-modelo');
   
-  // Limpa o select de modelos e deixa só a opção padrão
-  selectModelo.innerHTML = '<option value="">Modelo</option>';
+  modelSelect.innerHTML = '<option value="">Modelo</option>';
   
-  let modelos = [];
+  let models = [];
   
-  // Define os modelos baseados na marca escolhida
-  if (marca === 'land rover') {
-    modelos = ['Evoque'];
-  } else if (marca === 'volkswagen') {
-    modelos = ['Nivus', 'Golf'];
-  } else if (marca === 'hyundai') {
-    modelos = ['Creta'];
-  } else if (marca === 'honda') {
-    modelos = ['HR-V'];
-  } else if (marca === '') {
-    // Se a marca estiver vazia, mostramos todos os modelos disponíveis no estoque
-    modelos = ['Evoque', 'Nivus', 'Creta', 'Golf', 'HR-V'];
+  if (brand === 'land rover') {
+    models = ['Evoque'];
+  } else if (brand === 'volkswagen') {
+    models = ['Nivus', 'Golf'];
+  } else if (brand === 'hyundai') {
+    models = ['Creta'];
+  } else if (brand === 'honda') {
+    models = ['HR-V'];
+  } else if (brand === '') {
+    models = ['Evoque', 'Nivus', 'Creta', 'Golf', 'HR-V'];
   }
   
-  // Adiciona as opções correspondentes no select
-  modelos.forEach(m => {
+  models.forEach(m => {
     let opt = document.createElement('option');
-    opt.value = m.toLowerCase(); // Ex: 'evoque'
-    opt.textContent = m;         // Ex: 'Evoque'
-    selectModelo.appendChild(opt);
+    opt.value = m.toLowerCase(); 
+    opt.textContent = m;         
+    modelSelect.appendChild(opt);
   });
 }
 
-function buscarCarros() {
-  const marca = document.getElementById('busca-marca').value.toLowerCase();
-  const modelo = document.getElementById('busca-modelo').value.toLowerCase();
-  const ano = parseInt(document.getElementById('busca-ano').value) || 0;
-  const preco = document.getElementById('busca-preco').value;
+function searchCars() {
+  const brand = document.getElementById('busca-marca').value.toLowerCase();
+  const model = document.getElementById('busca-modelo').value.toLowerCase();
+  const year = parseInt(document.getElementById('busca-ano').value) || 0;
+  const priceLimit = document.getElementById('busca-preco').value;
 
   const cards = document.querySelectorAll('.car-card');
-  let encontrou = false;
+  let found = false;
 
   cards.forEach(card => {
-    // Pegar o nome do carro no card
-    const nome = card.querySelector('.cc-name').textContent.toLowerCase();
-
-    // Pegar o ano no card
+    const carName = card.querySelector('.cc-name').textContent.toLowerCase();
     const specs = card.querySelectorAll('.cc-spec');
-    const anoCarro = specs.length > 0 ? parseInt(specs[0].textContent) || 0 : 0;
-
-    // Pegar o preço no card
-    const priceStr = card.querySelector('.cc-price').textContent;
-    let precoCarro = 0;
+    const carYear = specs.length > 0 ? parseInt(specs[0].textContent) || 0 : 0;
     
-    // Ignoramos a formatação R$ e removemos pontos para transformar "R$ 113.800" em 113800
+    const priceStr = card.querySelector('.cc-price').textContent;
+    let carPrice = 0;
+    
     if (priceStr.includes('R$')) {
-      precoCarro = parseInt(priceStr.split(',')[0].replace(/\D/g, ''));
+      carPrice = parseInt(priceStr.split(',')[0].replace(/\D/g, ''));
     }
 
-    // Regras de Match
-    let matchMarca = (marca === "" || nome.includes(marca));
-    let matchModelo = (modelo === "" || nome.includes(modelo));
-    let matchAno = (ano === 0 || anoCarro >= ano);
+    let brandMatch = (brand === "" || carName.includes(brand));
+    let modelMatch = (model === "" || carName.includes(model));
+    let yearMatch = (year === 0 || carYear >= year);
     
-    let matchPreco = true;
-    if (preco !== "") {
-      if (preco === "max") {
-        matchPreco = (precoCarro >= 200000);
+    let priceMatch = true;
+    if (priceLimit !== "") {
+      if (priceLimit === "max") {
+        priceMatch = (carPrice >= 200000);
       } else {
-        // Exige que tenha um valor e que seja menor ou igual ao limite escolhido
-        matchPreco = (precoCarro > 0 && precoCarro <= parseInt(preco));
+        priceMatch = (carPrice > 0 && carPrice <= parseInt(priceLimit));
       }
     }
 
-    // Aplica a lógica de visualização
-    if (matchMarca && matchModelo && matchAno && matchPreco) {
-      card.style.display = ''; // Volta ao padrão da grade
-      encontrou = true;
+    if (brandMatch && modelMatch && yearMatch && priceMatch) {
+      card.style.display = ''; 
+      found = true;
     } else {
-      card.style.display = 'none'; // Esconde
+      card.style.display = 'none'; 
     }
   });
 
-  // Mostrar ou esconder a mensagem de erro
-  const msg = document.getElementById('msg-sem-estoque');
-  if (!encontrou) {
-    msg.style.display = 'block';
-  } else {
-    msg.style.display = 'none';
-  }
+  const errorMsg = document.getElementById('msg-sem-estoque');
+  errorMsg.style.display = !found ? 'block' : 'none';
 }
 
-// Limpa os filtros e volta todos os carros pra tela
-function limparBusca() {
+function clearSearch() {
   document.getElementById('busca-marca').value = "";
-  atualizarModelos(); // Reseta a lista de modelos para mostrar todos
+  updateModels(); 
   document.getElementById('busca-modelo').value = "";
   document.getElementById('busca-ano').value = "";
   document.getElementById('busca-preco').value = "";
@@ -921,8 +919,7 @@ setInterval(rotateHero, 3000);
 
 // ── INIT ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  // Preenche o dropdown de modelos ao iniciar a página
-  atualizarModelos();
+  updateModels();
 
   initCarousel(0, 20);
   addSwipe(0);
