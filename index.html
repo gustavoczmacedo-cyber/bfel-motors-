@@ -177,29 +177,28 @@
 
   /* RESPONSIVE & MOBILE TABS */
   @media(max-width:900px){
-    nav { padding: 0; } /* Removemos o limite lateral para o scroll do menu encostar na tela */
+    nav { padding: 0; }
     
     .nav-inner { 
       flex-direction: column; 
-      padding-top: 35px; /* Mais espaço no topo */
+      padding-top: 35px; 
       height: auto; 
       align-items: center; 
     }
     
-    /* LOGO GIGANTE E CENTRALIZADA */
+    /* LOGO OCUPANDO QUASE TODO O ESPAÇO PRETO NO MOBILE */
     .logo img { 
       height: auto; 
-      width: 260px; /* Bem maior */
-      max-width: 85vw; /* Garante que não quebre em telas muito pequenas */
-      max-height: 180px;
-      margin-bottom: 25px; /* Espaço para o menu em baixo */
+      width: 340px; /* Aumentado significativamente */
+      max-width: 90vw; 
+      margin-bottom: 25px; 
       object-fit: contain;
     }
     
-    /* MENU ROLLING (CARROSSEL DE ABAS COM O BOTAO JUNTO) */
+    /* CARROSSEL DE ABAS COM O BOTAO JUNTO */
     .nav-links {
       display: flex;
-      flex-wrap: nowrap; /* ISSO FORÇA A FICAREM NA MESMA LINHA */
+      flex-wrap: nowrap; 
       width: 100%;
       overflow-x: auto;
       padding: 16px 5vw;
@@ -210,13 +209,10 @@
       margin: 0;
     }
     .nav-links::-webkit-scrollbar { display: none; }
-    
-    /* Garante que nenhum item (nem o botao) seja espremido ou jogado pra baixo */
     .nav-links li {
       flex-shrink: 0;
       display: block;
     }
-    
     .nav-links a { 
       white-space: nowrap; 
       font-size: 14px; 
@@ -224,9 +220,18 @@
       color: #fff; 
     }
 
-    .hero-inner{grid-template-columns:1fr}
-    .hero-visual{display:none}
-    .hero h1{font-size:36px}
+    /* HERO CONFIG NO MOBILE */
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 44px; /* Ajuste do espaçamento entre o texto e a imagem */
+    }
+    
+    /* MODIFICADO PARA FAZER A IMAGEM DO CARRO APARECER NO MOBILE */
+    .hero-visual {
+      display: block !important;
+      width: 100%;
+    }
+    
     .search-row{grid-template-columns:1fr 1fr}
     .cars-grid{grid-template-columns:1fr 1fr}
     .sobre-grid{grid-template-columns:1fr}
@@ -246,7 +251,6 @@
     <div class="logo">
       <img src="logo.png" alt="Bfel Motors">
     </div>
-    
     <ul class="nav-links">
       <li><a href="#estoque">Estoque</a></li>
       <li><a href="#sobre">Sobre nós</a></li>
@@ -654,7 +658,7 @@
     <div>
       <div class="sobre-tag">Quem somos</div>
       <h2 style="font-size:36px;font-weight:900;line-height:1.15;margin-bottom:16px">Tradição e confiança<br><span style="color:var(--green)">há mais de 25 anos.</span></h2>
-      <p style="color:var(--muted);font-size:15px;line-height:1.75;margin-bottom:28px">A Bfel Motors é uma referência no mercado automotivo paulistano. Com mais de 25 anos de história, construímos nossa reputação com base em honestidade, qualidade e compromisso com cada cliente. Aqui você encontra veículos selecionados, atendimento de verdade e a segurança de negociar com quem entende do assunto.</p>
+      <p style="color:var(--muted);font-size:15px;line-height:1.75;margin-bottom:28px">A Bfel Motors é uma referência no mercado automotivo paulistano. Com mais de 25 anos de história, construímos nossa reputação com base em honestidade, qualidade e compromisso com cada cliente. Aqui você encontra veículos selecionados, atendimento de verdade and a segurança de negociar com quem entende do assunto.</p>
       <div class="sobre-stats">
         <div class="sobre-stat"><div class="sobre-stat-num">+25</div><div class="sobre-stat-label">Anos de mercado</div></div>
         <div class="sobre-stat"><div class="sobre-stat-num">200+</div><div class="sobre-stat-label">Carros vendidos</div></div>
@@ -877,6 +881,7 @@ function searchCars() {
   errorMsg.style.display = !found ? 'block' : 'none';
 }
 
+// Limpa filtros e mostra todos os cards
 function clearSearch() {
   document.getElementById('busca-marca').value = "";
   updateModels(); 
