@@ -181,18 +181,23 @@
     
     .nav-inner { 
       flex-direction: column; 
-      padding-top: 35px; 
+      padding-top: 10px; /* Reduzido o topo */
       height: auto; 
       align-items: center; 
     }
     
-    /* LOGO OCUPANDO QUASE TODO O ESPAÇO PRETO NO MOBILE */
+    /* TRUQUE DA LOGO: Caixa pequena, imagem transbordando! */
+    .logo {
+      height: 110px; /* Determina o exato espaço preto */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
     .logo img { 
+      width: 350px; /* Deixa o logótipo gigantesco visualmente */
       height: auto; 
-      width: 340px; /* Aumentado significativamente */
-      max-width: 90vw; 
-      margin-bottom: 25px; 
-      object-fit: contain;
+      max-width: none; /* A imagem vai ignorar os limites para encobrir o vazio */
     }
     
     /* CARROSSEL DE ABAS COM O BOTAO JUNTO */
@@ -207,6 +212,8 @@
       -webkit-overflow-scrolling: touch;
       align-items: center;
       margin: 0;
+      position: relative;
+      z-index: 10; /* Protege as abas garantindo que fiquem clicáveis por cima da imagem invisível */
     }
     .nav-links::-webkit-scrollbar { display: none; }
     .nav-links li {
@@ -223,10 +230,9 @@
     /* HERO CONFIG NO MOBILE */
     .hero-inner {
       grid-template-columns: 1fr;
-      gap: 44px; /* Ajuste do espaçamento entre o texto e a imagem */
+      gap: 44px;
     }
     
-    /* MODIFICADO PARA FAZER A IMAGEM DO CARRO APARECER NO MOBILE */
     .hero-visual {
       display: block !important;
       width: 100%;
@@ -251,6 +257,7 @@
     <div class="logo">
       <img src="logo.png" alt="Bfel Motors">
     </div>
+    
     <ul class="nav-links">
       <li><a href="#estoque">Estoque</a></li>
       <li><a href="#sobre">Sobre nós</a></li>
@@ -658,7 +665,7 @@
     <div>
       <div class="sobre-tag">Quem somos</div>
       <h2 style="font-size:36px;font-weight:900;line-height:1.15;margin-bottom:16px">Tradição e confiança<br><span style="color:var(--green)">há mais de 25 anos.</span></h2>
-      <p style="color:var(--muted);font-size:15px;line-height:1.75;margin-bottom:28px">A Bfel Motors é uma referência no mercado automotivo paulistano. Com mais de 25 anos de história, construímos nossa reputação com base em honestidade, qualidade e compromisso com cada cliente. Aqui você encontra veículos selecionados, atendimento de verdade and a segurança de negociar com quem entende do assunto.</p>
+      <p style="color:var(--muted);font-size:15px;line-height:1.75;margin-bottom:28px">A Bfel Motors é uma referência no mercado automotivo paulistano. Com mais de 25 anos de história, construímos nossa reputação com base em honestidade, qualidade e compromisso com cada cliente. Aqui você encontra veículos selecionados, atendimento de verdade e a segurança de negociar com quem entende do assunto.</p>
       <div class="sobre-stats">
         <div class="sobre-stat"><div class="sobre-stat-num">+25</div><div class="sobre-stat-label">Anos de mercado</div></div>
         <div class="sobre-stat"><div class="sobre-stat-num">200+</div><div class="sobre-stat-label">Carros vendidos</div></div>
@@ -881,7 +888,6 @@ function searchCars() {
   errorMsg.style.display = !found ? 'block' : 'none';
 }
 
-// Limpa filtros e mostra todos os cards
 function clearSearch() {
   document.getElementById('busca-marca').value = "";
   updateModels(); 
