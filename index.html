@@ -9,6 +9,10 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   :root{--green:#AADC00;--dark:#0A0A0A;--surface:#141414;--surface2:#1C1C1C;--text:#F0F0F0;--muted:#888}
+  
+  /* BLOQUEIA O SITE DE IR PARA OS LADOS */
+  html, body { overflow-x: hidden; width: 100%; }
+  
   body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min-height:100vh}
 
   /* NAV */
@@ -173,34 +177,52 @@
 
   /* RESPONSIVE & MOBILE TABS */
   @media(max-width:900px){
-    /* Logo grandona no centro */
+    nav { padding: 0; } /* Removemos o limite lateral para o scroll do menu encostar na tela */
+    
     .nav-inner { 
       flex-direction: column; 
-      padding-top: 25px; 
+      padding-top: 35px; /* Mais espaço no topo */
       height: auto; 
       align-items: center; 
     }
+    
+    /* LOGO GIGANTE E CENTRALIZADA */
     .logo img { 
-      height: 110px; 
-      margin-bottom: 20px;
+      height: auto; 
+      width: 260px; /* Bem maior */
+      max-width: 85vw; /* Garante que não quebre em telas muito pequenas */
+      max-height: 180px;
+      margin-bottom: 25px; /* Espaço para o menu em baixo */
+      object-fit: contain;
     }
     
-    /* Menu na mesma linha do botão no mobile */
+    /* MENU ROLLING (CARROSSEL DE ABAS COM O BOTAO JUNTO) */
     .nav-links {
       display: flex;
-      width: calc(100% + 10vw); /* Faz a barra encostar nos cantos da tela */
-      margin-left: -5vw;
-      margin-right: -5vw;
+      flex-wrap: nowrap; /* ISSO FORÇA A FICAREM NA MESMA LINHA */
+      width: 100%;
       overflow-x: auto;
       padding: 16px 5vw;
-      gap: 24px;
+      gap: 20px;
       border-top: 1px solid #1e1e1e;
-      -webkit-overflow-scrolling: touch; /* Suavidade no iOS */
+      -webkit-overflow-scrolling: touch;
       align-items: center;
+      margin: 0;
     }
-    /* Esconde a scrollbar feia */
     .nav-links::-webkit-scrollbar { display: none; }
-    .nav-links a { white-space: nowrap; font-size: 14px; font-weight: 600; color: #fff; }
+    
+    /* Garante que nenhum item (nem o botao) seja espremido ou jogado pra baixo */
+    .nav-links li {
+      flex-shrink: 0;
+      display: block;
+    }
+    
+    .nav-links a { 
+      white-space: nowrap; 
+      font-size: 14px; 
+      font-weight: 600; 
+      color: #fff; 
+    }
 
     .hero-inner{grid-template-columns:1fr}
     .hero-visual{display:none}
@@ -224,6 +246,7 @@
     <div class="logo">
       <img src="logo.png" alt="Bfel Motors">
     </div>
+    
     <ul class="nav-links">
       <li><a href="#estoque">Estoque</a></li>
       <li><a href="#sobre">Sobre nós</a></li>
