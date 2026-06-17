@@ -143,7 +143,7 @@
   .chegar-map{border-radius:16px;overflow:hidden;border:1px solid #222;height:320px}
   .chegar-map iframe{width:100%;height:100%;border:none;display:block;filter:grayscale(30%) contrast(1.05)}
   .chegar-info{display:flex;flex-direction:column;gap:16px}
-  .chegar-address(background:var(--surface);border:1px solid #1e1e1e;border-radius:14px;padding:24px;display:flex;gap:16px;align-items:flex-start}
+  .chegar-address{background:var(--surface);border:1px solid #1e1e1e;border-radius:14px;padding:24px;display:flex;gap:16px;align-items:flex-start}
   .chegar-address-icon{font-size:24px;margin-top:2px}
   .chegar-address h4{font-size:14px;font-weight:700;margin-bottom:6px}
   .chegar-address p{font-size:13px;color:var(--muted);line-height:1.7}
@@ -181,23 +181,23 @@
     
     .nav-inner { 
       flex-direction: column; 
-      padding-top: 10px; 
+      padding-top: 10px; /* Reduzido o topo */
       height: auto; 
       align-items: center; 
     }
     
     /* TRUQUE DA LOGO: Caixa pequena, imagem transbordando! */
     .logo {
-      height: 110px; 
+      height: 110px; /* Determina o exato espaço preto */
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
     }
     .logo img { 
-      width: 350px; 
+      width: 350px; /* Deixa o logótipo gigantesco visualmente */
       height: auto; 
-      max-width: none; 
+      max-width: none; /* A imagem vai ignorar os limites para encobrir o vazio */
     }
     
     /* CARROSSEL DE ABAS COM O BOTAO JUNTO */
@@ -213,7 +213,7 @@
       align-items: center;
       margin: 0;
       position: relative;
-      z-index: 10; 
+      z-index: 10; /* Protege as abas garantindo que fiquem clicáveis por cima da imagem invisível */
     }
     .nav-links::-webkit-scrollbar { display: none; }
     .nav-links li {
@@ -652,54 +652,6 @@
         </div>
       </div>
 
-      <div class="car-card">
-        <div class="cc-carousel-wrap">
-          <div class="cc-tag">🇧🇷 OUTFIT 0KM</div>
-          <button class="cc-arrow left" onclick="moveCarousel(6,-1)">‹</button>
-          <button class="cc-arrow right" onclick="moveCarousel(6,1)">›</button>
-          <div class="cc-carousel" id="carousel-6">
-            <img src="carros/nivusout/1A4B550F-0A53-4E65-9239-85C888513838.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/2AAD738E-E120-4DCC-AB30-67DAFAE3FFCA.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/3D56D4EC-524B-4152-BF7C-76B280B2E9F5.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/5A04E013-279F-4E40-97D1-BC072E1BB6C7.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/5BB1FE47-D1E7-4817-80D5-0AB7DBBBAA14.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/6B7292C3-E4C1-441B-986A-2DC668797475.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/8D40D467-86F7-4329-B25B-11737209C9AB.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/48D33854-1B94-4BF2-A4C5-30E3CA7847FD.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/77B705FD-FC8D-4261-96B7-CB5AEDB1E991.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/987CFDB4-8343-46B6-A2C9-D2696CD0C3C9.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/8359E0B3-6E6F-47FC-86AD-57D8E86111A9.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/9741B84E-1FE8-407A-8656-9332722CB9EF.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/A8C4AD89-1CBB-4F0F-A69C-94DEAFA6A9C3.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/A2823CC8-24B8-4557-B768-719D9DA50E0A.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/CBA91CB7-8F88-4562-BDE5-AF91283DA182.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/D7B42DEC-D54F-42DE-B1DC-EEFC193DCD61.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/D9C45418-E638-4E95-B342-EF3A971FAC67.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/E74853DA-7731-485A-98DF-808FEBB4FD3A.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/EB3CC876-A521-4262-BB5A-A5BA18299274.JPEG" alt="Nivus Outfit">
-            <img src="carros/nivusout/F8559DFD-4E6A-4F02-90EB-A054B49DEB89.JPEG" alt="Nivus Outfit">
-          </div>
-          <div class="cc-dots" id="dots-6"></div>
-          <div class="cc-count" id="count-6">1 / 20</div>
-        </div>
-        <div class="cc-body">
-          <div class="cc-name">Volkswagen Nivus Highline Outfit</div>
-          <div class="cc-specs">
-            <span class="cc-spec">2026</span>
-            <span class="cc-spec">0 km</span>
-            <span class="cc-spec">1.0 TSi 128cv</span>
-            <span class="cc-spec">Azul Titan</span>
-          </div>
-          <div class="cc-footer">
-            <div class="cc-price-wrap">
-              <div class="cc-price-old"></div>
-              <div class="cc-price">R$ 158.800</div>
-            </div>
-            <button class="cc-btn" onclick="window.open('https://wa.me/5511947781046?text=Olá, tenho interesse no VW Nivus Highline Outfit 2026!','_blank')">Ver detalhes</button>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </div>
@@ -1026,8 +978,6 @@ document.addEventListener('DOMContentLoaded', () => {
   addSwipe(4);
   initCarousel(5, 17);
   addSwipe(5);
-  initCarousel(6, 20); 
-  addSwipe(6);
 });
 </script>
 </body>
